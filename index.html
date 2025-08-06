@@ -26,6 +26,10 @@
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
             </nav>
+            <!-- Botão de menu para mobile -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
@@ -47,7 +51,7 @@
             
             <div class="filters">
                 <div class="filter-group">
-                    <label>Categoria:</label>
+                    <label for="categoryFilter">Categoria:</label>
                     <select id="categoryFilter">
                         <option value="all">Todos</option>
                         <option value="espresso">Espresso</option>
@@ -61,7 +65,7 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label>Ordenar por:</label>
+                    <label for="sortFilter">Ordenar por:</label>
                     <select id="sortFilter">
                         <option value="name">Nome</option>
                         <option value="price-low">Preço: Menor para Maior</option>
@@ -70,23 +74,40 @@
                 </div>
             </div>
 
-            <div class="products-grid" id="productsGrid">
-                </div>
+            <main class="products-grid" id="productsGrid"></main>
         </div>
     </section>
 
     <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title">Nossa História</h2>
-            <div class="about-content">
-                <img src="src/img/products/unnamed.png" alt="Barista preparando café" class="about-image">
-                <div class="about-text">
-                    <p>O Rock'n Blues Coffee nasceu da paixão pela música e pelo café. Acreditamos que, assim como uma boa canção, uma xícara de café pode ter alma, ritmo e uma história para contar. Nossos grãos são cuidadosamente selecionados e torrados para expressar a intensidade do rock, a suavidade do blues e a complexidade do jazz.</p>
-                    <p>Cada blend é uma homenagem a um gênero musical, convidando você a uma experiência sensorial única. Venha nos visitar e sinta a melodia em cada gole.</p>
-                </div>
+    <div class="container">
+        <h2 class="section-title">Handmade Just For You</h2>
+        <div class="about-content reverse-on-mobile">
+            <div class="about-image">
+                <img src="src/img/products/unnamed.png" alt="Grãos de café em embalagem">
+            </div>
+            <div class="about-text">
+                <h3>Feito à mão só para você</h3>
+                <p>Nossos grãos de café cultivados organicamente são torrados em fogo aberto em um torrador de tijolos exclusivo. Não há nada como uma xícara de café da Brussels Brewery.</p>
+                
             </div>
         </div>
-    </section>
+
+        <h2 class="section-title">Feito em Bruxelas</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Made In Brussels</h3>
+                <p>Bem-vindo à Brussels Brewery, onde o charme de Bruxelas se encontra com o aroma do café fresco. Nosso café é um refúgio aconchegante onde os amigos se reúnem, as ideias florescem e cada gole conta uma história.</p>
+                <p>
+
+Venha experimentar a alma de Bruxelas em cada xícara e cada mordida — mal podemos esperar para recebê-lo!</p>
+                
+            </div>
+            <div class="about-image">
+                <img src="src/img/products/local_cafe.png" alt="Interior de cafeteria">
+            </div>
+        </div>
+    </div>
+</section>
 
     <section id="contact" class="contact-section">
         <div class="container">
@@ -191,7 +212,7 @@
                 <i class="fas fa-times"></i>
             </button>
             <div class="product-modal-header">
-                <img id="modalProductImage" src="" alt="Imagem do Café" class="product-modal-image">
+                <img id="modalProductImage" src="" alt="Imagem do Produto" class="product-modal-image">
                 <div class="product-modal-details">
                     <h3 id="modalProductName"></h3>
                     <p id="modalProductDescription"></p>
@@ -199,9 +220,8 @@
                 </div>
             </div>
             <div class="product-modal-body">
-                <h4>Ingredientes:</h4>
-                <ul id="modalIngredientsList">
-                    </ul>
+                <h4><i class="fas fa-seedling"></i> Ingredientes:</h4>
+                <ul id="modalIngredientsList" class="ingredients-list"></ul>
             </div>
             <div class="product-modal-footer">
                 <button class="add-to-cart-modal" id="modalAddToCart">
@@ -226,7 +246,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Rock'n Blues Coffee. Todos os direitos reservados.</p>
+            <p>© 2024 Rock'n Blues Coffee. Todos os direitos reservados.</p>
             <div class="social-links">
                 <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>

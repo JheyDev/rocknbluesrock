@@ -7,47 +7,70 @@
 
 body {
     font-family: 'Oswald', sans-serif;
-    background-color: #1a1a1a;
     color: #f5f5f5;
     line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
-    background-image: url('src/img/grao_background.jpg'); 
+    background-image: url('src/img/background-caffe.png'); /* Adicione o caminho da sua imagem */
     background-size: cover;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Sobreposição preta com 50% de transparência */
+}
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 20%;
+    right: 10%;
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    height: 100px; /* Ajuste o tamanho conforme necessário */
+    background-image: url('src/img/notas_musicais.png'); /* Imagem de notas musicais */
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0; /* Coloca atrás do conteúdo */
 }
 
 /* Header */
 .header {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(10px);
+    height: 80px; /* Define uma altura fixa */
+    background-color: rgba(26, 26, 26, 0.95); /* Fundo escuro translúcido */
+    backdrop-filter: blur(10px); /* Desfoque de fundo */
+    -webkit-backdrop-filter: blur(10px); /* Compatibilidade com Safari */
     z-index: 1000;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Opcional: adiciona uma sombra para destacar */
 }
 
 .header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%; /* Preenche toda a altura do header */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 20px;
+    padding: 0 20px;
 }
 
 .header .logo img {
-    height: 80px;
+    height: 60px; /* Pode ajustar para caber bem dentro do header */
     width: auto;
 }
+
 
 .nav {
     display: flex;
@@ -275,6 +298,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    padding: 2rem;
     animation: fadeIn 0.6s ease-out;
 }
 
@@ -290,6 +314,8 @@ body {
     transition: all 0.3s ease;
     border: 2px solid transparent;
     animation: slideUp 0.6s ease-out;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
 }
 
 @keyframes slideUp {
@@ -304,7 +330,7 @@ body {
 }
 
 .product-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.03); /* COMBINADO: translateY e scale */
     border-color: #d4af37;
     box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
 }
@@ -323,8 +349,9 @@ body {
 .product-image img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover; /* CONFIRMADO: ALTERADO PARA COVER */
     border-radius: 15px 15px 0 0;
+    display: block;
 }
 
 .product-image::before {
@@ -343,11 +370,6 @@ body {
 }
 
 /* Special styling for premium products */
-.product-card[data-premium="true"] {
-    border: 2px solid #d4af37;
-    background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-}
-
 .product-card[data-premium="true"]::before {
     content: '★ PREMIUM';
     position: absolute;
@@ -362,6 +384,106 @@ body {
     z-index: 2;
 }
 
+/* New styling for other product categories */
+.product-card[data-category="quentes"]::before {
+    content: '🔥 QUENTE';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #8B4513; /* Brown */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="gelados"]::before {
+    content: '❄️ GELADO';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #4682B4; /* SteelBlue */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="whisky"]::before {
+    content: '🥃 WHISKY';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #D2691E; /* Chocolate */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="veganos"]::before {
+    content: '🌱 VEGANO';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #228B22; /* ForestGreen */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="especiais"]::before {
+    content: '✨ ESPECIAL';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #8A2BE2; /* BlueViolet */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="descafeinados"]::before {
+    content: '😴 DESCAFEINADO';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #708090; /* SlateGray */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-card[data-category="espresso"]::before {
+    content: '☕ ESPRESSO';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #6F4E37; /* Coffee */
+    color: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+
 /* Category-specific styling */
 .product-card[data-category="whisky"] .product-image { background: linear-gradient(45deg, #8B4513, #D2691E); }
 .product-card[data-category="gourmet"] .product-image { background: linear-gradient(45deg, #FFD700, #FFA500); }
@@ -372,11 +494,19 @@ body {
     padding: 1.5rem;
 }
 
+/* Wrapper para o nome do produto e o ícone de informação */
+/* Este wrapper não será mais necessário se o ícone for na imagem */
+/* .product-title-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+} */
+
 .product-name {
     font-size: 1.3rem;
     font-weight: 600;
     color: #f5f5f5;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; /* Revertido para o original */
 }
 
 .product-description {
@@ -583,6 +713,11 @@ body {
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-overlay.active {
+    display: flex;
 }
 
 .modal-content {
@@ -594,12 +729,42 @@ body {
     width: 90%;
     position: relative;
     animation: slideIn 0.4s ease-out;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    border: 2px solid #d4af37;
 }
 
 @keyframes slideIn {
     from {
         opacity: 0;
         transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MODAL de produto */
+.modal-content.product-modal-content {
+    max-width: 750px; /* Reverti para 750px para um bom equilíbrio */
+    background: #1a1a1a;
+    color: #f5f5f5;
+    padding: 2rem; /* Reverti o padding para 2rem */
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    border: 2px solid #d4af37;
+    animation: slideInUp 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh; /* Reverti para 90vh */
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
     }
     to {
         opacity: 1;
@@ -624,10 +789,13 @@ body {
 .modal-close {
     background: none;
     border: none;
-    color: #f5f5f5;
+    color: #d4af37;
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s ease;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .modal-close:hover {
@@ -730,28 +898,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* About Section */
-.about-section {
-    padding: 80px 0;
-    background: linear-gradient(to top, #1a1a1a, #2d2d2d);
-}
-
-.about-content {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-}
-
-.about-image {
-    width: 50%;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.about-text {
-    width: 50%;
-    font-size: 1.1rem;
-}
 
 /* Contact Section */
 .contact-section {
@@ -846,35 +992,458 @@ body {
     color: #d4af37;
 }
 
-/* Media Queries */
-@media (max-width: 992px) {
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-    }
+/* Seção Sobre */
+.about-section {
+    padding: 80px 0;
+    background: #1a1a1a;
+}
 
-    .about-image, .about-text {
-        width: 100%;
-    }
+.about-content {
+    /* Usando Grid para um layout de duas colunas similar ao Contato */
+    display: grid;
+    /* Ambas as colunas (imagem e texto) ocupam espaço igual */
+    grid-template-columns: 1fr 1fr;
+    align-items: center; /* Alinha itens verticalmente ao centro */
+    gap: 2rem; /* Espaçamento entre as colunas */
+}
 
-    .contact-grid {
-        grid-template-columns: 1fr;
+.about-image {
+    /* Centraliza a imagem dentro da sua coluna de grid */
+    text-align: center;
+}
+
+.about-image img {
+    /* Garante que a imagem preencha a largura do seu contêiner */
+    width: 100%;
+    height: auto;
+    max-width: 300px; /* Definindo uma largura máxima para a imagem para que não fique gigante */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.about-text {
+    font-size: 1.1rem;
+    text-align: left; /* Garante que o texto dentro do bloco esteja alinhado à esquerda */
+}
+
+.about-text h2 {
+    margin-bottom: 1rem;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+}
+
+/* Regra para o container, se não estiver já no seu CSS */
+.container {
+    max-width: 1200px; /* Largura máxima para o conteúdo */
+    margin: 0 auto;    /* Centraliza o contêiner horizontalmente */
+    padding: 0 30px;   /* Aumentei o espaçamento nas laterais para 30px */
+}
+
+
+/* Estilo para o botão de informação (novo) */
+.info-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(26, 26, 26, 0.85);
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.info-icon:hover {
+    background: #d4af37;
+    color: #1a1a1a;
+    transform: scale(1.1);
+}
+
+/* Estilos para o Modal de Ingredientes (novo) */
+.modal-content.product-modal-content {
+    max-width: 750px; /* Reverti para 750px para um bom equilíbrio */
+    background: #1a1a1a;
+    color: #f5f5f5;
+    padding: 2rem; /* Reverti o padding para 2rem */
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    border: 2px solid #d4af37;
+    animation: slideInUp 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh; /* Reverti para 90vh */
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
+.product-modal-header {
+    display: flex;
+    gap: 1.5rem; /* Reverti o gap para 1.5rem */
+    align-items: flex-start; /* Alinha itens ao topo */
+    margin-bottom: 1.5rem;
+    min-height: auto; /* Removi o min-height daqui */
+}
+
+.product-modal-image {
+    width: 250px; /* Reverti para 250px */
+    min-width: 250px; /* Garante que a imagem não encolha */
+    height: auto; /* Permite que a altura se ajuste naturalmente */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-modal-details {
+    flex: 1;
+    padding-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Estilos para os elementos de texto dentro da modal */
+#modalProductName {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; /* Reverti para 2.2rem */
+    color: #d4af37;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+#modalProductDescription {
+    font-size: 1rem; /* Reverti para 1rem */
+    color: #bbb;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+#modalProductPrice {
+    font-size: 1.8rem; /* Reverti para 1.8rem */
+    font-weight: bold;
+    color: #f4d03f;
+    margin-top: auto;
+}
+
+
+.product-modal-body {
+    margin-top: 1rem;
+    flex-grow: 1;
+    overflow-y: hidden; /* Removi a barra de rolagem vertical */
+    padding-right: 0; /* Removi o padding da barra de rolagem */
+}
+
+.ingredients-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.8rem;
+    display: grid; /* Usando Grid para o layout de duas colunas */
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas de largura igual */
+    gap: 10px 20px; /* Espaçamento entre linhas e colunas */
+}
+
+.ingredients-list h4 {
+    margin-bottom: 0.5rem;
+    color: #d4af37;
+    font-size: 1.2rem;
+    grid-column: 1 / -1; /* Faz o título ocupar todas as colunas */
+}
+
+.ingredients-list li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 25px;
+    font-size: 0.95rem;
+}
+
+.ingredients-list li::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #d4af37;
+    position: absolute;
+    left: 0;
+}
+
+.product-modal-footer {
+    text-align: right;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #444;
+}
+
+.add-to-cart-modal {
+    background-color: #d4af37;
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-modal:hover {
+    background-color: #f0c420;
+}
+
+/* Media Queries */
+
+/* Mobile (até 768px) */
 @media (max-width: 768px) {
     .header .container {
-        flex-direction: column;
-        padding-top: 2rem;
+        flex-direction: row; /* Mantém em linha para logo e botões */
+        justify-content: space-between;
+        padding: 0 15px;
+        height: 70px; /* Ajusta a altura para mobile */
+    }
+
+    .header .logo img {
+        height: 50px; /* Ajusta o tamanho do logo */
     }
 
     .nav {
-        margin-top: 1rem;
+        /* Esconde a navegação principal por padrão em mobile */
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; /* Abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: rgba(26, 26, 26, 0.98);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        padding: 1rem 0;
+        border-top: 1px solid #333;
+    }
+
+    .nav.open {
+        display: flex; /* Mostra a navegação quando o menu está aberto */
+    }
+
+    .nav a {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cart-toggle {
+        margin-left: auto; /* Empurra o carrinho para a direita */
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .menu-toggle {
+        display: block; /* Mostra o botão de menu em mobile */
+        background: none;
+        border: 2px solid #d4af37;
+        color: #d4af37;
+        padding: 8px 12px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: 1rem; /* Espaçamento entre o carrinho e o menu */
+    }
+
+    .menu-toggle:hover {
+        background: #d4af37;
+        color: #1a1a1a;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 10vw, 4rem); /* Ajusta o tamanho da fonte */
+    }
+
+    .hero-subtitle {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .filters {
+        flex-direction: column;
         gap: 1.5rem;
+        padding: 0 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colunas menores para mobile */
+        padding: 1rem;
+    }
+
+    .product-card {
+        margin: 0 auto; /* Centraliza cards em telas muito pequenas */
+    }
+
+    .about-content {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        text-align: center;
+    }
+
+    .about-image img {
+        max-width: 250px; /* Ajusta o tamanho da imagem na seção Sobre */
+    }
+
+    .about-text {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        gap: 2rem;
+        padding: 0 15px;
+    }
+
+    .contact-form-container, .contact-info-container {
+        padding: 0;
+    }
+
+    .map-container {
+        height: 200px; /* Altura menor para o mapa */
     }
 
     .footer .container {
         flex-direction: column;
         gap: 1rem;
     }
+
+    .cart-sidebar {
+        width: 100%; /* Ocupa a largura total em mobile */
+        right: -100%; /* Esconde completamente */
+    }
+
+    .cart-sidebar.open {
+        right: 0;
+    }
+
+    .modal-content {
+        width: 95%; /* Ocupa mais largura em mobile */
+        padding: 1.5rem;
+    }
+
+    .modal-content.product-modal-content {
+        padding: 1.5rem;
+        max-width: 95%;
+    }
+
+    .product-modal-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .product-modal-image {
+        width: 180px;
+        min-width: 180px;
+        height: auto;
+    }
+
+    .product-modal-details {
+        padding-left: 0;
+    }
+
+    #modalProductName {
+        font-size: 1.8rem;
+    }
+
+    #modalProductDescription {
+        font-size: 0.95rem;
+    }
+
+    #modalProductPrice {
+        font-size: 1.5rem;
+    }
+
+    .ingredients-list {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        gap: 5px; /* Ajuste o espaçamento para mobile */
+    }
+}
+
+/* Tablet (768px a 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .header .container {
+        padding: 0 30px;
+    }
+
+    .nav {
+        gap: 1.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        padding: 1.5rem;
+    }
+
+    .about-content, .contact-grid {
+        gap: 3rem;
+    }
+
+    .modal-content {
+        max-width: 600px;
+    }
+
+    .modal-content.product-modal-content {
+        max-width: 700px;
+    }
+}
+
+/* Desktop (acima de 1024px) */
+@media (min-width: 1025px) {
+    .header .container {
+        padding: 0 20px;
+    }
+
+    .nav {
+        gap: 2rem;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        padding: 2rem;
+    }
+
+    .about-content, .contact-grid {
+        gap: 4rem;
+    }
+
+    .modal-content {
+        max-width: 500px;
+    }
+
+    .modal-content.product-modal-content {
+        max-width: 750px;
+    }
+}
+
+/* Oculta o botão de menu em telas maiores */
+.menu-toggle {
+    display: none;
 }

@@ -569,6 +569,7 @@ const mockProducts = [
 let products = [...mockProducts];
 let filteredProducts = [...products];
 let cart = [];
+let selectedProduct = null; // Nova variável para o produto selecionado no modal
 
 // DOM Elements
 const productsGrid = document.getElementById('productsGrid');
@@ -597,8 +598,6 @@ const modalProductPrice = document.getElementById('modalProductPrice');
 const modalIngredientsList = document.getElementById('modalIngredientsList');
 const modalAddToCart = document.getElementById('modalAddToCart');
 
-// Current product for modal
-let currentModalProduct = null;
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', function() {
@@ -620,8 +619,21 @@ function setupEventListeners() {
     checkoutForm.addEventListener('submit', handleCheckout);
     categoryFilter.addEventListener('change', applyFilters);
     sortFilter.addEventListener('change', applyFilters);
-    productModalClose.addEventListener('click', closeProductModal);
-    modalAddToCart.addEventListener('click', addCurrentModalProductToCart);
+
+    // Event listeners para o modal de produto (atualizados)
+    productModalClose.addEventListener("click", () => {
+        productModal.classList.remove("active");
+    });
+    modalAddToCart.addEventListener("click", () => {
+        if (selectedProduct) addToCart(selectedProduct.id);
+        productModal.classList.remove("active");
+    });
+    // Fecha modal ao clicar fora
+    productModal.addEventListener('click', (event) => {
+        if (event.target === productModal) {
+            productModal.classList.remove("active");
+        }
+    });
 
     // Close cart when clicking outside
     document.addEventListener('click', function(e) {
@@ -630,17 +642,10 @@ function setupEventListeners() {
         }
     });
 
-    // Close modal when clicking outside
+    // Close checkout modal when clicking outside
     checkoutModal.addEventListener('click', function(e) {
         if (e.target === checkoutModal) {
             closeCheckoutModal();
-        }
-    });
-
-    // Close product modal when clicking outside
-    productModal.addEventListener('click', function(e) {
-        if (e.target === productModal) {
-            closeProductModal();
         }
     });
 }
@@ -658,32 +663,47 @@ function renderProducts() {
     });
 }
 
+// Cria o card de produto (ATUALIZADO)
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.setAttribute('data-category', product.category);
-    card.onclick = () => openProductModal(product);
 
+    // Adiciona o atributo data-premium ou data-normal baseado na categoria
     const isPremium = product.category === 'gourmet' || product.price > 100;
     if (isPremium) {
         card.setAttribute('data-premium', 'true');
+    } else {
+        card.setAttribute('data-normal', 'true'); // Adiciona o atributo para não-premium
     }
 
     card.innerHTML = `
         <div class="product-image">
             <img src="${product.image}" alt="${product.name}">
+            <button class="info-icon" onclick="event.stopPropagation(); openProductModalById(${product.id})" title="Ver ingredientes">
+                <i class="fas fa-info-circle"></i>
+            </button>
         </div>
         <div class="product-info">
             <h3 class="product-name">${product.name}</h3>
             <p class="product-description">${product.description}</p>
-            <div class="product-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+            <div class="product-price">R$ ${(product.price).toFixed(2).replace('.', ',')}</div>
             <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
                 Adicionar
             </button>
         </div>
     `;
+
+    // Abre o modal de produto completo ao clicar no card, mas não no botão de info
+    card.addEventListener('click', (event) => {
+        // Verifica se o clique não foi no botão de informação
+        if (!event.target.closest('.info-icon')) {
+            openProductModal(product);
+        }
+    });
     return card;
 }
+
 
 function updateCartDisplay() {
     cartItems.innerHTML = '';
@@ -749,12 +769,18 @@ function applyFilters() {
     const category = categoryFilter.value;
     const sort = sortFilter.value;
     
-    // Filter
-    filteredProducts = products.filter(product => {
-        return category === 'all' || product.category === category;
-    });
+    // Se o filtro de ordenação for "Preço: Menor para Maior", mostra todos os produtos
+    if (sort === 'price-low') {
+        filteredProducts = [...products]; // Começa com todos os produtos
+        categoryFilter.value = 'all'; // Reseta o filtro de categoria para "Todos"
+    } else {
+        // Caso contrário, filtra por categoria normalmente
+        filteredProducts = products.filter(product => {
+            return category === 'all' || product.category === category;
+        });
+    }
 
-    // Sort
+    // Aplica a ordenação
     if (sort === 'name') {
         filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sort === 'price-low') {
@@ -789,34 +815,31 @@ function handleCheckout(e) {
     }, 2000);
 }
 
-// Product Modal Functions
+// Product Modal Functions (ATUALIZADAS)
 function openProductModal(product) {
-    currentModalProduct = product;
+    selectedProduct = product; // Usa a nova variável
+
+    modalProductImage.src = product.image;
     modalProductName.textContent = product.name;
     modalProductDescription.textContent = product.description;
     modalProductPrice.textContent = `R$ ${product.price.toFixed(2).replace('.', ',')}`;
-    modalProductImage.src = product.image;
-    modalProductImage.alt = product.name;
-    modalIngredientsList.innerHTML = '';
+
+    modalIngredientsList.innerHTML = "";
     product.ingredients.forEach(ingredient => {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.textContent = ingredient;
         modalIngredientsList.appendChild(li);
     });
-    productModal.style.display = 'flex';
+
+    productModal.classList.add("active"); // Usa a classe 'active'
 }
 
-function closeProductModal() {
-    productModal.style.display = 'none';
-    currentModalProduct = null;
+// Abre modal por ID (usado no botão “i”) (NOVA FUNÇÃO)
+function openProductModalById(productId) {
+    const product = products.find(p => p.id === productId);
+    if (product) openProductModal(product);
 }
 
-function addCurrentModalProductToCart() {
-    if (currentModalProduct) {
-        addToCart(currentModalProduct.id);
-        closeProductModal();
-    }
-}
 
 // Utility Functions
 function showLoading() {

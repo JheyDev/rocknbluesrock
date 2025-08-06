@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock'n Blues Coffee - Café com Alma Musical</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#home">
+                    <img src="src/img/logo-rock.png" alt="Logo Rock'n Blues Coffee">
+                </a>
+            </div>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#products">Produtos</a>
+                <a href="#about">Sobre</a>
+                <a href="#contact">Contato</a>
+                <button class="cart-toggle" id="cartToggle">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Rock'n Blues Coffee</h1>
+            <p class="hero-subtitle">Onde cada xícara tem ritmo e alma</p>
+            <button class="cta-button" onclick="scrollToProducts()">
+                <i class="fas fa-music"></i>
+                Explore Nossos Cafés
+            </button>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 class="section-title">Nossa Seleção Musical</h2>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Categoria:</label>
+                    <select id="categoryFilter">
+                        <option value="all">Todos</option>
+                        <option value="espresso">Espresso</option>
+                        <option value="quentes">Cafés Quentes</option>
+                        <option value="gelados">Cafés Gelados</option>
+                        <option value="whisky">Cafés com Whisky</option>
+                        <option value="gourmet">Cafés Gourmet</option>
+                        <option value="especiais">Especiais da Casa</option>
+                        <option value="veganos">Cafés Veganos</option>
+                        <option value="descafeinados">Descafeinados</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Ordenar por:</label>
+                    <select id="sortFilter">
+                        <option value="name">Nome</option>
+                        <option value="price-low">Preço: Menor para Maior</option>
+                        <option value="price-high">Preço: Maior para Menor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">Nossa História</h2>
+            <div class="about-content">
+                <img src="src/img/products/unnamed.png" alt="Barista preparando café" class="about-image">
+                <div class="about-text">
+                    <p>O Rock'n Blues Coffee nasceu da paixão pela música e pelo café. Acreditamos que, assim como uma boa canção, uma xícara de café pode ter alma, ritmo e uma história para contar. Nossos grãos são cuidadosamente selecionados e torrados para expressar a intensidade do rock, a suavidade do blues e a complexidade do jazz.</p>
+                    <p>Cada blend é uma homenagem a um gênero musical, convidando você a uma experiência sensorial única. Venha nos visitar e sinta a melodia em cada gole.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Fale Conosco</h2>
+            <div class="contact-grid">
+                <div class="contact-form-container">
+                    <h3>Envie uma mensagem</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Nome</label>
+                            <input type="text" id="contactName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Mensagem</label>
+                            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+                <div class="contact-info-container">
+                    <h3>Nossos Detalhes</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Rua dos Acordes, 123 - Centro<br>São Paulo, SP, 01000-000</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+55 11 98765-4321</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>contato@rocknblues.coffee</p>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.485108250269!2d-46.63412358487779!3d-23.55051938468305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce58448f7d983f%3A0x6d20f69d3f1a3a41!2sPra%C3%A7a%20da%20S%C3%A9!5e0!3m2!1spt-BR!2sbr!4v1678822557404!5m2!1spt-BR!2sbr" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="cart-close" id="cartClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cartTotal">0,00</span></strong>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i> Finalizar Pedido
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizar Pedido</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="checkout-form" id="checkoutForm">
+                <div class="form-group">
+                    <label for="customerName">Nome Completo:</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email:</label>
+                    <input type="email" id="customerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Telefone:</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress">Endereço de Entrega:</label>
+                    <textarea id="customerAddress" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="submit-order-btn">
+                    <i class="fas fa-shipping-fast"></i> Confirmar Pedido
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content product-modal-content">
+            <button class="modal-close" id="productModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-modal-header">
+                <img id="modalProductImage" src="" alt="Imagem do Café" class="product-modal-image">
+                <div class="product-modal-details">
+                    <h3 id="modalProductName"></h3>
+                    <p id="modalProductDescription"></p>
+                    <strong id="modalProductPrice"></strong>
+                </div>
+            </div>
+            <div class="product-modal-body">
+                <h4>Ingredientes:</h4>
+                <ul id="modalIngredientsList">
+                    </ul>
+            </div>
+            <div class="product-modal-footer">
+                <button class="add-to-cart-modal" id="modalAddToCart">
+                    <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Carregando...</p>
+        </div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h4>Pedido Finalizado!</h4>
+        <p>Seu pedido foi enviado com sucesso.</p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Rock'n Blues Coffee. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

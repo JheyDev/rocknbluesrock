@@ -26,9 +26,11 @@
                     <span class="cart-count" id="cartCount">0</span>
                 </button>
             </nav>
-            <!-- Botão de menu para mobile -->
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
+            <!-- Botão de menu hambúrguer para telas menores -->
+            <button class="hamburger-toggle" aria-label="Abrir Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </button>
         </div>
     </header>
@@ -79,35 +81,29 @@
     </section>
 
     <section id="about" class="about-section">
-    <div class="container">
-        <h2 class="section-title">Handmade Just For You</h2>
-        <div class="about-content reverse-on-mobile">
-            <div class="about-image">
-                <img src="src/img/products/unnamed.png" alt="Grãos de café em embalagem">
-            </div>
-            <div class="about-text">
-                <h3>Feito à mão só para você</h3>
-                <p>Nossos grãos de café cultivados organicamente são torrados em fogo aberto em um torrador de tijolos exclusivo. Não há nada como uma xícara de café da Brussels Brewery.</p>
-                
-            </div>
-        </div>
+            <div class="container">
+                <h2 class="section-title">Sobre Nós</h2>
+                <div class="about-content reverse-on-mobile">
+                    <div class="about-image">
+                        <img src="src/img/products/unnamed.png" alt="Barista preparando um café">
+                    </div>
+                    <div class="about-text">
+                        <h3>O Artesanato em Cada Xícara</h3>
+                        <p>Na Rock'n Blues Coffee, cada xícara é uma obra de arte. Nossa paixão pelo café começa na seleção rigorosa de grãos orgânicos de alta qualidade, que são torrados artesanalmente para realçar seus sabores e aromas únicos. Nossos baristas são verdadeiros artesãos, dedicados a extrair a essência perfeita em cada preparo, garantindo uma experiência sensorial inesquecível para você.</p>
+                    </div>
+                </div>
 
-        <h2 class="section-title">Feito em Bruxelas</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>Made In Brussels</h3>
-                <p>Bem-vindo à Brussels Brewery, onde o charme de Bruxelas se encontra com o aroma do café fresco. Nosso café é um refúgio aconchegante onde os amigos se reúnem, as ideias florescem e cada gole conta uma história.</p>
-                <p>
-
-Venha experimentar a alma de Bruxelas em cada xícara e cada mordida — mal podemos esperar para recebê-lo!</p>
-                
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Um Refúgio para os Amantes de Café</h3>
+                        <p>Mais do que um lugar para tomar café, somos um ponto de encontro. Nosso ambiente foi pensado para ser um refúgio acolhedor, onde a melodia suave do blues se mistura com o aroma do café fresco. É o local ideal para relaxar, trabalhar, encontrar amigos ou simplesmente desfrutar de um momento de paz. Cada detalhe, da decoração à nossa seleção musical, foi criado para fazer você se sentir em casa. Venha nos visitar e faça parte da nossa história.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="src/img/products/local_cafe.png" alt="Interior da cafeteria">
+                    </div>
+                </div>
             </div>
-            <div class="about-image">
-                <img src="src/img/products/local_cafe.png" alt="Interior de cafeteria">
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
@@ -207,29 +203,29 @@ Venha experimentar a alma de Bruxelas em cada xícara e cada mordida — mal pod
     </div>
 
     <div class="modal-overlay" id="productModal">
-        <div class="modal-content product-modal-content">
-            <button class="modal-close" id="productModalClose">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="product-modal-header">
-                <img id="modalProductImage" src="" alt="Imagem do Produto" class="product-modal-image">
-                <div class="product-modal-details">
-                    <h3 id="modalProductName"></h3>
-                    <p id="modalProductDescription"></p>
-                    <strong id="modalProductPrice"></strong>
+    <div class="modal-content product-modal-content">
+        <button class="modal-close" id="productModalClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="product-modal-header">
+            <img id="modalProductImage" src="" alt="Imagem do Produto" class="product-modal-image">
+            <div class="product-modal-details">
+                <h3 id="modalProductName"></h3>
+                <p id="modalProductDescription"></p>
                 </div>
-            </div>
-            <div class="product-modal-body">
-                <h4><i class="fas fa-seedling"></i> Ingredientes:</h4>
-                <ul id="modalIngredientsList" class="ingredients-list"></ul>
-            </div>
-            <div class="product-modal-footer">
-                <button class="add-to-cart-modal" id="modalAddToCart">
-                    <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
-                </button>
-            </div>
+        </div>
+        <div class="product-modal-body">
+            <h4><i class="fas fa-seedling"></i> Ingredientes:</h4>
+            <ul id="modalIngredientsList" class="ingredients-list"></ul>
+        </div>
+        <div class="product-modal-footer">
+            <strong id="modalProductPrice"></strong>
+            <button class="add-to-cart-modal" id="modalAddToCart">
+                <i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho
+            </button>
         </div>
     </div>
+</div>
 
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">

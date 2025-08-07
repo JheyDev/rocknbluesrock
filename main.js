@@ -1,3 +1,32 @@
+// ====================================
+// FUNCIONALIDADE DO MENU HAMBÚRGUER
+// ====================================
+
+// Seleciona os elementos do DOM
+const hamburgerToggle = document.querySelector('.hamburger-toggle');
+const nav = document.querySelector('.header .nav');
+
+// Adiciona um listener de evento de clique ao botão do hambúrguer
+if (hamburgerToggle) {
+    hamburgerToggle.addEventListener('click', () => {
+        // Alterna a classe 'active' no botão do hambúrguer para a animação
+        hamburgerToggle.classList.toggle('active');
+        // Alterna a classe 'open' na navegação para mostrar/esconder o menu
+        nav.classList.toggle('open');
+    });
+}
+
+
+// Fecha o menu quando um link é clicado (para navegação em uma única página)
+nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        // Remove a classe 'active' do botão
+        hamburgerToggle.classList.remove('active');
+        // Remove a classe 'open' da navegação
+        nav.classList.remove('open');
+    });
+});
+
 // Mock API Data
 const mockProducts = [
     // Cafés Quentes Clássicos
@@ -654,7 +683,6 @@ function scrollToProducts() {
     document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
 }
 
-// Render Functions
 function renderProducts() {
     productsGrid.innerHTML = ''; // Clear existing products
     filteredProducts.forEach(product => {
@@ -663,47 +691,52 @@ function renderProducts() {
     });
 }
 
-// Cria o card de produto (ATUALIZADO)
+// Cria o card de produto
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.setAttribute('data-category', product.category);
 
-    // Adiciona o atributo data-premium ou data-normal baseado na categoria
     const isPremium = product.category === 'gourmet' || product.price > 100;
     if (isPremium) {
         card.setAttribute('data-premium', 'true');
     } else {
-        card.setAttribute('data-normal', 'true'); // Adiciona o atributo para não-premium
+        card.setAttribute('data-normal', 'true');
     }
 
-    card.innerHTML = `
-        <div class="product-image">
+     card.innerHTML = `
+        <div class="product-image-container">
             <img src="${product.image}" alt="${product.name}">
-            <button class="info-icon" onclick="event.stopPropagation(); openProductModalById(${product.id})" title="Ver ingredientes">
-                <i class="fas fa-info-circle"></i>
-            </button>
+            <div class="product-info-icon" title="Ver ingredientes"><i class="fas fa-info-circle"></i></div>
         </div>
-        <div class="product-info">
+        <div class="product-content">
             <h3 class="product-name">${product.name}</h3>
             <p class="product-description">${product.description}</p>
-            <div class="product-price">R$ ${(product.price).toFixed(2).replace('.', ',')}</div>
-            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
+        </div>
+        <div class="product-actions">
+            <span class="product-card-price">R$ ${(product.price).toFixed(2).replace('.', ',')}</span>
+            <button class="add-to-cart" data-id="${product.id}">
                 Adicionar
             </button>
         </div>
     `;
 
-    // Abre o modal de produto completo ao clicar no card, mas não no botão de info
-    card.addEventListener('click', (event) => {
-        // Verifica se o clique não foi no botão de informação
-        if (!event.target.closest('.info-icon')) {
-            openProductModal(product);
-        }
+// Event listener para o ícone de informação
+    const infoIcon = card.querySelector('.product-info-icon');
+    infoIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openProductModal(product);
     });
+
+ // Event listener para o botão de adicionar ao carrinho
+    const addToCartButton = card.querySelector('.add-to-cart');
+    addToCartButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        addToCart(product.id);
+    });
+
     return card;
 }
-
 
 function updateCartDisplay() {
     cartItems.innerHTML = '';
@@ -721,9 +754,9 @@ function updateCartDisplay() {
                 <div class="cart-item-price">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</div>
             </div>
             <div class="cart-item-quantity">
-                <button class="quantity-btn" onclick="removeFromCart(${item.id})">-</button>
+                <button class="quantity-btn" onclick="event.stopPropagation(); removeFromCart(${item.id})">-</button>
                 <span>${item.quantity}</span>
-                <button class="quantity-btn" onclick="addToCart(${item.id})">+</button>
+                <button class="quantity-btn" onclick="event.stopPropagation(); addToCart(${item.id})">+</button>
             </div>
         `;
         cartItems.appendChild(cartItemElement);
@@ -839,7 +872,6 @@ function openProductModalById(productId) {
     const product = products.find(p => p.id === productId);
     if (product) openProductModal(product);
 }
-
 
 // Utility Functions
 function showLoading() {

@@ -999,31 +999,32 @@ body::after {
 }
 
 .about-content {
-    /* Usando Grid para um layout de duas colunas similar ao Contato */
-    display: grid;
-    /* Ambas as colunas (imagem e texto) ocupam espaço igual */
-    grid-template-columns: 1fr 1fr;
-    align-items: center; /* Alinha itens verticalmente ao centro */
-    gap: 2rem; /* Espaçamento entre as colunas */
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .about-image {
-    /* Centraliza a imagem dentro da sua coluna de grid */
-    text-align: center;
+    flex: 1 1 50%;
+    height: auto; /* Altere esta linha */
+    max-width: 50%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
 }
 
 .about-image img {
-    /* Garante que a imagem preencha a largura do seu contêiner */
     width: 100%;
-    height: auto;
-    max-width: 300px; /* Definindo uma largura máxima para a imagem para que não fique gigante */
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    height: auto; /* Mantenha 'auto' para que a altura se ajuste à proporção original da imagem */
+    object-fit: cover; /* Mude para 'cover' para que a imagem preencha o espaço sem deixar vazios */
+    display: block;
 }
 
 .about-text {
-    font-size: 1.1rem;
-    text-align: left; /* Garante que o texto dentro do bloco esteja alinhado à esquerda */
+    flex: 1 1 50%; /* Faz o texto ocupar os outros 50% */
+    max-width: 50%; /* Altera a largura máxima para 50% */
+    /* ... o restante das propriedades permanece o mesmo ... */
 }
 
 .about-text h2 {

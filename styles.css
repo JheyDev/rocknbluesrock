@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -194,7 +195,7 @@ body::after {
 }
 
 .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Lobster', cursive; /* Alterado para a fonte Lobster */
     font-size: clamp(2.5rem, 8vw, 5rem);
     color: #d4af37;
     margin-bottom: 1rem;
@@ -239,7 +240,7 @@ body::after {
 }
 
 .section-title {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Lobster', cursive; /* Alterado para a fonte Lobster */
     font-size: 3rem;
     text-align: center;
     color: #d4af37;
@@ -912,7 +913,7 @@ body::after {
 }
 
 .contact-form-container h3, .contact-info-container h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Lobster', cursive; /* Alterado para a fonte Lobster */
     color: #d4af37;
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -1028,6 +1029,7 @@ body::after {
 }
 
 .about-text h2 {
+    font-family: 'Lobster', cursive; /* Adicione esta linha ou altere a existente */
     margin-bottom: 1rem;
 }
 
